@@ -38,7 +38,6 @@ public class SPContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-
         return true;
     }
 
@@ -87,7 +86,7 @@ public class SPContentProvider extends ContentProvider {
         if (type.equals(TYPE_CONTAIN)) {
             return SPHelperImpl.contains(getContext(), spName, key) + "";
         }
-        return "" + SPHelperImpl.get(getContext(), spName, key, type);
+        return SPHelperImpl.get(getContext(), spName, key, type);
     }
 
     @Nullable
@@ -98,7 +97,12 @@ public class SPContentProvider extends ContentProvider {
         String key = path[3];
         Object obj = values.get(VALUE);
         if (obj != null) {
-            SPHelperImpl.save(getContext(), spName, key, obj);
+            boolean result = SPHelperImpl.save(getContext(), spName, key, obj);
+            if (result) {
+                return uri;
+            } else {
+                return null;
+            }
         }
         return null;
     }
@@ -109,12 +113,21 @@ public class SPContentProvider extends ContentProvider {
         String spName = path[1];
         String type = path[2];
         if (type.equals(TYPE_CLEAN)) {
-            SPHelperImpl.clear(getContext(), spName);
-            return 0;
+            boolean result = SPHelperImpl.clear(getContext(), spName);
+            if (result) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else if (type.equals(TYPE_DELETE)) {
             String key = path[3];
             if (SPHelperImpl.contains(getContext(), spName, key)) {
-                SPHelperImpl.remove(getContext(), spName, key);
+                boolean result = SPHelperImpl.remove(getContext(), spName, key);
+                if (result) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
         return 0;
@@ -122,7 +135,6 @@ public class SPContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        insert(uri, values);
-        return 0;
+        return insert(uri, values) == null ? 0 : 1;
     }
 }

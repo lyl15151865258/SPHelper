@@ -54,97 +54,107 @@ public class SPHelper {
         context = application.getApplicationContext();
     }
 
-    public synchronized static void save(String name, Boolean t) {
+    public synchronized static boolean save(String name, Boolean t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_BOOLEAN + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String spName, String name, Boolean t) {
+    public synchronized static boolean save(String spName, String name, Boolean t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_BOOLEAN + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String name, String t) {
+    public synchronized static boolean save(String name, String t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_STRING + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String spName, String name, String t) {
+    public synchronized static boolean save(String spName, String name, String t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_STRING + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String name, Integer t) {
+    public synchronized static boolean save(String name, Integer t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_INT + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String spName, String name, Integer t) {
+    public synchronized static boolean save(String spName, String name, Integer t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_INT + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String name, Long t) {
+    public synchronized static boolean save(String name, Long t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_LONG + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String spName, String name, Long t) {
+    public synchronized static boolean save(String spName, String name, Long t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_LONG + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String name, Float t) {
+    public synchronized static boolean save(String name, Float t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_BOOLEAN + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String spName, String name, Float t) {
+    public synchronized static boolean save(String spName, String name, Float t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_BOOLEAN + SEPARATOR + name);
         ContentValues cv = new ContentValues();
         cv.put(VALUE, t);
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String name, Set<String> t) {
+    public synchronized static boolean save(String name, Set<String> t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_STRING_SET + SEPARATOR + name);
@@ -154,10 +164,11 @@ public class SPHelper {
             convert.add(string.replace(",", COMMA_REPLACEMENT));
         }
         cv.put(VALUE, convert.toString());
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
-    public synchronized static void save(String spName, String name, Set<String> t) {
+    public synchronized static boolean save(String spName, String name, Set<String> t) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_STRING_SET + SEPARATOR + name);
@@ -167,7 +178,8 @@ public class SPHelper {
             convert.add(string.replace(",", COMMA_REPLACEMENT));
         }
         cv.put(VALUE, convert.toString());
-        cr.update(uri, cv, null, null);
+        int r = cr.update(uri, cv, null, null);
+        return r == 1;
     }
 
     public static String getString(String name, String defaultValue) {
@@ -344,32 +356,36 @@ public class SPHelper {
         }
     }
 
-    public static void remove(String name) {
+    public static boolean remove(String name) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_DELETE + SEPARATOR + name);
-        cr.delete(uri, null, null);
+        int r = cr.delete(uri, null, null);
+        return r == 1;
     }
 
-    public static void remove(String spName, String name) {
+    public static boolean remove(String spName, String name) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_DELETE + SEPARATOR + name);
-        cr.delete(uri, null, null);
+        int r = cr.delete(uri, null, null);
+        return r == 1;
     }
 
-    public static void clear() {
+    public static boolean clear() {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_CLEAN);
-        cr.delete(uri, null, null);
+        int r = cr.delete(uri, null, null);
+        return r == 1;
     }
 
-    public static void clear(String spName) {
+    public static boolean clear(String spName) {
         checkContext();
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_CLEAN);
-        cr.delete(uri, null, null);
+        int r = cr.delete(uri, null, null);
+        return r == 1;
     }
 
     public static HashMap<String, ?> getAll() {

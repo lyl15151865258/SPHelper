@@ -85,16 +85,15 @@ public class SPHelperImpl {
         }
     }
 
-    synchronized static <T> void save(Context context, String spName, String name, T t) {
+    public synchronized static <T> boolean save(Context context, String spName, String name, T t) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
-            return;
+            return false;
         }
         if (t.equals(getCachedValue(spName, name))) {
-            return;
+            return true;
         }
         SharedPreferences.Editor editor = sp.edit();
-        Log.d("SPHelperImpl", "文件名：" + spName + "，保存数据：" + name + "," + t);
         if (t instanceof Boolean) {
             editor.putBoolean(name, (Boolean) t);
         }
@@ -110,11 +109,11 @@ public class SPHelperImpl {
         if (t instanceof Float) {
             editor.putFloat(name, (Float) t);
         }
-        editor.apply();
         setValueToCached(spName, name, t);
+        return editor.commit();
     }
 
-    static String get(Context context, String spName, String name, String type) {
+    public static String get(Context context, String spName, String name, String type) {
         Object value = getCachedValue(spName, name);
         if (value == null) {
             value = get_impl(context, spName, name, type);
@@ -142,7 +141,7 @@ public class SPHelperImpl {
         return null;
     }
 
-    static String getString(Context context, String spName, String name, String defaultValue) {
+    public static String getString(Context context, String spName, String name, String defaultValue) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
             return defaultValue;
@@ -150,7 +149,7 @@ public class SPHelperImpl {
         return sp.getString(name, defaultValue);
     }
 
-    static int getInt(Context context, String spName, String name, int defaultValue) {
+    public static int getInt(Context context, String spName, String name, int defaultValue) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
             return defaultValue;
@@ -158,7 +157,7 @@ public class SPHelperImpl {
         return sp.getInt(name, defaultValue);
     }
 
-    static float getFloat(Context context, String spName, String name, float defaultValue) {
+    public static float getFloat(Context context, String spName, String name, float defaultValue) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
             return defaultValue;
@@ -166,7 +165,7 @@ public class SPHelperImpl {
         return sp.getFloat(name, defaultValue);
     }
 
-    static boolean getBoolean(Context context, String spName, String name, boolean defaultValue) {
+    public static boolean getBoolean(Context context, String spName, String name, boolean defaultValue) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
             return defaultValue;
@@ -174,7 +173,7 @@ public class SPHelperImpl {
         return sp.getBoolean(name, defaultValue);
     }
 
-    static long getLong(Context context, String spName, String name, long defaultValue) {
+    public static long getLong(Context context, String spName, String name, long defaultValue) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
             return defaultValue;
@@ -182,7 +181,7 @@ public class SPHelperImpl {
         return sp.getLong(name, defaultValue);
     }
 
-    static boolean contains(Context context, String name) {
+    public static boolean contains(Context context, String name) {
         Log.d("SPHelperImpl", "contains");
         SharedPreferences sp = getSP(context);
         if (sp == null) {
@@ -191,7 +190,7 @@ public class SPHelperImpl {
         return sp.contains(name);
     }
 
-    static boolean contains(Context context, String spName, String name) {
+    public static boolean contains(Context context, String spName, String name) {
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
             return false;
@@ -199,26 +198,29 @@ public class SPHelperImpl {
         return sp.contains(name);
     }
 
-    static void remove(Context context, String spName, String key) {
+    public static boolean remove(Context context, String spName, String key) {
+        cleanCachedValue(spName, key);
         SharedPreferences sp = getSP(context, spName);
         if (sp == null) {
-            return;
+            return false;
         }
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
-        editor.apply();
-        cleanCachedValue(spName, key);
+        return editor.commit();
     }
 
-    static void clear(Context context, String spName) {
+    public static boolean clear(Context context, String spName) {
+        cleanCachedValue(spName, null);
         SharedPreferences sp = getSP(context, spName);
+        if (sp == null) {
+            return false;
+        }
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
-        editor.apply();
-        cleanCachedValue(spName, null);
+        return editor.commit();
     }
 
-    static Map<String, ?> getAll(Context context, String spName) {
+    public static Map<String, ?> getAll(Context context, String spName) {
         SharedPreferences sp = getSP(context, spName);
         return sp.getAll();
     }

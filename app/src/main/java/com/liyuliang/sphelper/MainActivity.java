@@ -15,16 +15,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 存储到默认xml文件（文件名为SPHelperImpl类中的DEFAULT_NAME）
-        SPHelper.save("aaa", 1);
+        Log.d("MainActivity","保存成功："+SPHelper.save("aaa", 1));
+        Log.d("MainActivity","保存成功："+SPHelper.save("aaa", 2));
         SPHelper.save("bbb", "22");
         SPHelper.save("ccc", 100f);
         SPHelper.save("ddd", false);
+        Log.d("MainActivity","删除成功："+SPHelper.remove("aaa"));
+        Log.d("MainActivity","删除成功："+SPHelper.clear("myConfig"));
 
         // 存储到指定名称的xml
         SPHelper.save("myConfig", "aaa", 1);
         SPHelper.save("myConfig", "bbb", "22");
         SPHelper.save("myConfig", "ccc", 100f);
         SPHelper.save("myConfig", "ddd", false);
+        Log.d("MainActivity","删除成功："+SPHelper.clear("myConfig"));
 
         Log.d("MainActivity", "默认文件aaa：" + SPHelper.getInt("aaa", 0));
         Log.d("MainActivity", "默认文件bbb：" + SPHelper.getString("bbb", ""));
