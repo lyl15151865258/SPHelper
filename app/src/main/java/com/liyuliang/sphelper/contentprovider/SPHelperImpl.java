@@ -2,7 +2,6 @@ package com.liyuliang.sphelper.contentprovider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
@@ -123,7 +122,7 @@ public class SPHelperImpl {
     }
 
     private static Object get_impl(Context context, String spName, String name, String type) {
-        if (contains(context, name)) {
+        if (contains(context, spName, name)) {
             if (type.equalsIgnoreCase(ConstantUtil.TYPE_STRING)) {
                 return getString(context, spName, name, null);
             } else if (type.equalsIgnoreCase(ConstantUtil.TYPE_BOOLEAN)) {
@@ -179,15 +178,6 @@ public class SPHelperImpl {
             return defaultValue;
         }
         return sp.getLong(name, defaultValue);
-    }
-
-    public static boolean contains(Context context, String name) {
-        Log.d("SPHelperImpl", "contains");
-        SharedPreferences sp = getSP(context);
-        if (sp == null) {
-            return false;
-        }
-        return sp.contains(name);
     }
 
     public static boolean contains(Context context, String spName, String name) {
