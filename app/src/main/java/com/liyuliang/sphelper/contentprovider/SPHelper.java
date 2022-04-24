@@ -393,7 +393,7 @@ public class SPHelper {
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + SPHelperImpl.DEFAULT_NAME + SEPARATOR + TYPE_GET_ALL);
         Cursor cursor = cr.query(uri, null, null, null, null);
-        HashMap resultMap = new HashMap();
+        HashMap<String, Object> resultMap = new HashMap<>();
         if (cursor != null && cursor.moveToFirst()) {
             int nameIndex = cursor.getColumnIndex(CURSOR_COLUMN_NAME);
             int typeIndex = cursor.getColumnIndex(CURSOR_COLUMN_TYPE);
@@ -440,7 +440,7 @@ public class SPHelper {
         ContentResolver cr = context.getContentResolver();
         Uri uri = Uri.parse(CONTENT_URI + SEPARATOR + spName + SEPARATOR + TYPE_GET_ALL);
         Cursor cursor = cr.query(uri, null, null, null, null);
-        HashMap resultMap = new HashMap();
+        HashMap<String, Object> resultMap = new HashMap<>();
         if (cursor != null && cursor.moveToFirst()) {
             int nameIndex = cursor.getColumnIndex(CURSOR_COLUMN_NAME);
             int typeIndex = cursor.getColumnIndex(CURSOR_COLUMN_TYPE);
