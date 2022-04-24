@@ -300,7 +300,7 @@ public class SPHelper {
         if (rtn == null || rtn.equals(NULL_STRING)) {
             return defaultValue;
         }
-        if (!rtn.matches("\\[.*\\]")) {
+        if (!rtn.matches("\\[.*]")) {
             return defaultValue;
         }
         String sub = rtn.substring(1, rtn.length() - 1);
@@ -320,7 +320,7 @@ public class SPHelper {
         if (rtn == null || rtn.equals(NULL_STRING)) {
             return defaultValue;
         }
-        if (!rtn.matches("\\[.*\\]")) {
+        if (!rtn.matches("\\[.*]")) {
             return defaultValue;
         }
         String sub = rtn.substring(1, rtn.length() - 1);
@@ -406,7 +406,7 @@ public class SPHelper {
                     value = cursor.getString(valueIndex);
                     if (((String) value).contains(COMMA_REPLACEMENT)) {
                         String str = (String) value;
-                        if (str.matches("\\[.*\\]")) {
+                        if (str.matches("\\[.*]")) {
                             String sub = str.substring(1, str.length() - 1);
                             String[] spl = sub.split(", ");
                             Set<String> returns = new HashSet<>();
@@ -453,7 +453,7 @@ public class SPHelper {
                     value = cursor.getString(valueIndex);
                     if (((String) value).contains(COMMA_REPLACEMENT)) {
                         String str = (String) value;
-                        if (str.matches("\\[.*\\]")) {
+                        if (str.matches("\\[.*]")) {
                             String sub = str.substring(1, str.length() - 1);
                             String[] spl = sub.split(", ");
                             Set<String> returns = new HashSet<>();
